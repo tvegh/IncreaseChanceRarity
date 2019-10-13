@@ -115,11 +115,10 @@ namespace Increase_Rarity
                 bool flag = pickupIndex == PickupIndex.none;
                 if (flag)
                 {
-                    Chat.SendBroadcastChat(new Chat.SubjectFormatChatMessage
-                    {
-                        subjectCharacterBodyGameObject = activator.gameObject,
-                        baseToken = "SHRINE_CHANCE_FAIL_MESSAGE"
-                    });
+                    Chat.SubjectFormatChatMessage formatChatMessage = new Chat.SubjectFormatChatMessage();
+                    formatChatMessage.subjectAsCharacterBody = activator.GetComponent<CharacterBody>();
+                    formatChatMessage.baseToken = "SHRINE_CHANCE_FAIL_MESSAGE";
+                    Chat.SendBroadcastChat((Chat.ChatMessageBase) formatChatMessage);
                     //on failure, increment failure count
                     failureCount++;
                 }
@@ -128,11 +127,10 @@ namespace Increase_Rarity
                     self.SetFieldValue<int>("successfulPurchaseCount", self.GetFieldValue<int>("successfulPurchaseCount") + 1);
                     //this.successfulPurchaseCount++;
                     PickupDropletController.CreatePickupDroplet(pickupIndex, self.dropletOrigin.position, self.dropletOrigin.forward * 20f);
-                    Chat.SendBroadcastChat(new Chat.SubjectFormatChatMessage
-                    {
-                        subjectCharacterBodyGameObject = activator.gameObject,
-                        baseToken = "SHRINE_CHANCE_SUCCESS_MESSAGE"
-                    });
+                    Chat.SubjectFormatChatMessage formatChatMessage = new Chat.SubjectFormatChatMessage();
+                    formatChatMessage.subjectAsCharacterBody = activator.GetComponent<CharacterBody>();
+                    formatChatMessage.baseToken = "SHRINE_CHANCE_SUCCESS_MESSAGE";
+                    Chat.SendBroadcastChat((Chat.ChatMessageBase) formatChatMessage);
                     //on success, reset failure count to 0
                     failureCount = 0;
                 }
